@@ -14,6 +14,10 @@ async function bootstrap() {
     .setTitle('HTTP Mock Server')
     .setDescription('프론트 온보딩을 위한 http mock server')
     .setVersion('1.0')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+    })
     .build();
 
   patchNestJsSwagger();
