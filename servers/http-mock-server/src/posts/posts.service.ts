@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { IPostEntity } from './entities/post.entity';
-import { createPaginate } from 'src/utils/pagination';
+import { createPaginate } from 'src/common/utils/pagination';
 
 let posts: IPostEntity[] = Array.from({ length: 100 }).map((_, i) => ({
   id: i,

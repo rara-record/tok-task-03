@@ -12,12 +12,12 @@ import {
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ListAllDto, listAllSchema } from './dto/list-all.dto';
-import { ApiQueries } from 'src/utils/decorators/api-queries';
 import { PostEntity } from './entities/post.entity';
-import { ApiOkResponsePaginated } from 'src/utils/decorators/paginated';
-import { orThrow } from 'src/utils/or-throw';
+import { ApiOkResponsePaginated } from 'src/common/decorators/paginated';
+import { ApiQueries } from 'src/common/decorators/api-queries';
+import { orThrow } from 'src/common/utils/or-throw';
 
 @Controller('posts')
 @ApiTags('posts')
@@ -25,7 +25,7 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Post()
-  @ApiResponse({
+  @ApiOkResponse({
     status: 201,
     type: PostEntity,
   })
@@ -41,10 +41,7 @@ export class PostsController {
   }
 
   @Get(':id')
-  @ApiResponse({
-    status: 200,
-    type: PostEntity,
-  })
+  @ApiOkResponse({ type: PostEntity })
   findOne(@Param('id') id: string) {
     return orThrow(
       this.postsService.findOne(+id), //
@@ -53,10 +50,7 @@ export class PostsController {
   }
 
   @Patch(':id')
-  @ApiResponse({
-    status: 200,
-    type: PostEntity,
-  })
+  @ApiOkResponse({ type: PostEntity })
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     return orThrow(
       this.postsService.update(+id, updatePostDto),
@@ -65,9 +59,7 @@ export class PostsController {
   }
 
   @Delete(':id')
-  @ApiResponse({
-    status: 204,
-  })
+  @ApiOkResponse({ status: 204 })
   remove(@Param('id') id: string) {
     return orThrow(
       this.postsService.remove(+id), //
