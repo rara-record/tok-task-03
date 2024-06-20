@@ -1,15 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { UserEntity } from './entities/user.entities';
-
-const user: UserEntity[] = [
-  {
-    id: 0,
-    name: 'test',
-    password: 'test',
-  },
-];
-
-let nextId = user.length;
+import { UserEntity, userRepo } from './entities/user.entities';
 
 @Injectable()
 export class UsersService {
@@ -17,17 +7,21 @@ export class UsersService {
     key: T,
     value: UserEntity[T],
   ): Promise<UserEntity | undefined> {
-    return user.find((user) => user[key] === value);
+    return userRepo.findOne({
+      query: [
+        {
+          key,
+          value,
+        } as any,
+      ],
+    });
   }
 
   async create(data: Omit<UserEntity, 'id'>) {
     if (await this.findOneBy('name', data.name)) {
       throw new BadRequestException('User already exists');
     }
-    const item = { id: nextId, ...data };
-    user.push(item);
-    nextId++;
 
-    return item;
+    return userRepo.create(data);
   }
 }

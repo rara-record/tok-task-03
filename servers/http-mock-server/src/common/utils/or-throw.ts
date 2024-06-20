@@ -1,5 +1,5 @@
 export const orThrow = (data: any, eception: any) => {
-  if (!data) {
+  if (typeof data === 'undefined') {
     throw eception;
   }
   return data;

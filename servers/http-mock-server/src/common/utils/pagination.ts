@@ -6,6 +6,15 @@ export const createPaginate =
       : 0;
 
     const end = start + limit;
+
+    if (start === -1) {
+      return {
+        result: [],
+        next: null,
+        hasNextPage: false,
+        total: arr.length,
+      };
+    }
     return {
       result: arr.slice(start, end),
       next: arr[end] ? getCursor(arr[end]) : null,

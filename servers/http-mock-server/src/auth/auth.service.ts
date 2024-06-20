@@ -16,12 +16,24 @@ export class AuthService {
   ) {}
 
   async refresh(refreshToken: string) {
-    const parsed = await this.jwtService.verifyAsync(refreshToken, {
-      secret: JWT.REFRESH_SECRET,
-    });
-    const user = await this.usersService.findOneBy('name', parsed.username);
+    const parsed = await this.jwtService
+      .verifyAsync(refreshToken, {
+        secret: JWT.REFRESH_SECRET,
+      })
+      .catch((e) => {
+        throw new UnauthorizedException({
+          name: e.name,
+          statusCode: 401,
+          message: 'Invalid Token',
+        });
+      });
 
-    return this.signIn(user.name, user.password);
+    const user = await this.usersService.findOneBy('name', parsed.username);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    return this.signIn(user?.name, user?.password);
   }
 
   async signUp(user: Omit<UserEntity, 'id'>) {
