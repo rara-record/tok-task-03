@@ -1,0 +1,5 @@
+export const ENV = {
+  PORT: 5000,
+  JWT_TOKEN_EXPIRATION: '20s',
+  JWT_REFRESH_TOKEN_EXPIRATION: '7d',
+};

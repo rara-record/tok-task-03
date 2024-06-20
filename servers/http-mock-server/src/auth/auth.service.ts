@@ -2,6 +2,11 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { omit } from 'lodash';
+import { UserEntity } from 'src/users/entities/user.entities';
+import { ENV } from 'env';
+import { JWT } from './constants';
+
+export const blackListTokens: string[] = [];
 
 @Injectable()
 export class AuthService {
@@ -9,6 +14,19 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
+
+  async refresh(refreshToken: string) {
+    const parsed = await this.jwtService.verifyAsync(refreshToken, {
+      secret: JWT.REFRESH_SECRET,
+    });
+    const user = await this.usersService.findOneBy('name', parsed.username);
+
+    return this.signIn(user.name, user.password);
+  }
+
+  async signUp(user: Omit<UserEntity, 'id'>) {
+    return this.usersService.create(user);
+  }
 
   async signIn(
     username: string,
@@ -18,24 +36,45 @@ export class AuthService {
     if (user?.password !== pass) {
       throw new UnauthorizedException();
     }
-    const payload = { sub: user.id, username: user.name };
-
-    const access = await this.jwtService.signAsync(payload, {
-      expiresIn: '60s',
-    });
-
-    const refresh = await this.jwtService.signAsync(payload, {
-      expiresIn: '1d',
-    });
 
     return {
-      access_token: access,
-      refresh_token: refresh,
+      access_token: await this.genrateAccessToken(user),
+      refresh_token: await this.generateRefreshToken(username),
     };
   }
 
   async getProfile(username: string) {
     const res = await this.usersService.findOneBy('name', username);
     return omit(res, ['password']);
+  }
+
+  async genrateAccessToken(user: UserEntity) {
+    const payload = { sub: user.id, username: user.name };
+
+    return this.jwtService.signAsync(payload, {
+      secret: JWT.SECRET,
+      expiresIn: ENV.JWT_TOKEN_EXPIRATION,
+    });
+  }
+
+  async generateRefreshToken(username: string) {
+    const user = await this.usersService.findOneBy('name', username);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    const payload = { sub: user.id, username: user.name };
+
+    return this.jwtService.signAsync(payload, {
+      secret: JWT.REFRESH_SECRET,
+      expiresIn: ENV.JWT_REFRESH_TOKEN_EXPIRATION,
+    });
+  }
+
+  toBloackList(token: string) {
+    blackListTokens.push(token);
+  }
+
+  isBlackList(token: string) {
+    return blackListTokens.includes(token);
   }
 }
