@@ -1,6 +1,7 @@
 import {
   CanActivate,
   ExecutionContext,
+  HttpException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -28,11 +29,7 @@ export class AuthGuard implements CanActivate {
       request['user'] = payload;
     } catch (e) {
       if (e.name === 'TokenExpiredError') {
-        throw new UnauthorizedException({
-          name: e.name,
-          statusCode: 444,
-          message: 'Token Expired',
-        });
+        throw new HttpException('Token has expired', 444);
       }
 
       throw new UnauthorizedException({

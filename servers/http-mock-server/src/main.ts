@@ -7,9 +7,16 @@ import { ENV } from 'env';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
+
   const config = new DocumentBuilder()
     .setTitle('HTTP Mock Server')
-    .setDescription('프론트 온보딩을 위한 http mock server')
+    .setDescription(
+      `
+      프론트 온보딩을 위한 http mock server
+      - openapi-json : http://localhost:${ENV.PORT}/api-json
+      `,
+    )
     .setVersion('1.0')
     .addBearerAuth({
       type: 'http',

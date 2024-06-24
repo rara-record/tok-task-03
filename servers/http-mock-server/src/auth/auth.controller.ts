@@ -17,6 +17,7 @@ import { SignUpDto } from './dto/sign-up.dto';
 import { UserEntity } from 'src/users/entities/user.entities';
 import { SocialLoginDto } from './dto/social-login.dto';
 import { RefreshDto } from './dto/refresh.dto';
+import { ProfileDto } from './dto/profile.dto';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -65,6 +66,9 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('profile')
   @ApiBearerAuth()
+  @ApiOkResponse({
+    type: ProfileDto,
+  })
   getProfile(@Request() req) {
     return this.authService.getProfile(req.user?.username);
   }
