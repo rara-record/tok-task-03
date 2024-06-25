@@ -8,16 +8,18 @@ import {
   Delete,
   Query,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ListAllDto, listAllSchema } from './dto/list-all.dto';
 import { PostEntity } from './entities/post.entity';
 import { ApiOkResponsePaginated } from 'src/common/decorators/paginated';
 import { ApiQueries } from 'src/common/decorators/api-queries';
 import { orThrow } from 'src/common/utils/or-throw';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('posts')
 @ApiTags('posts')
@@ -25,6 +27,8 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Post()
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({
     status: 201,
     type: PostEntity,
@@ -41,6 +45,8 @@ export class PostsController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: PostEntity })
   findOne(@Param('id') id: string) {
     return orThrow(
@@ -50,6 +56,8 @@ export class PostsController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: PostEntity })
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     return orThrow(
@@ -59,6 +67,8 @@ export class PostsController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ status: 204 })
   remove(@Param('id') id: string) {
     return orThrow(
