@@ -5,7 +5,7 @@ currentDirectory="$(pwd)"
 osascript - "${currentDirectory}" <<EOF 
 on run {currentDirectory}
   tell application "Terminal"
-    do script "cd " & (quoted form of currentDirectory) & " && cd next-page-router && pnpm i && pnpm dev"
+    do script "cd " & (quoted form of currentDirectory) & " && cd next-page-init && pnpm i && pnpm dev"
   end tell
 end run
 EOF

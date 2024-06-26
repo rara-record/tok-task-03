@@ -27,11 +27,11 @@ tokit
 대화형 프롬포트의 응답을 아래와 같이 해주세요.
 
 ```
-What is your project named?  next-page-router
+What is your project named?  next-page-init
 ```
 
 ```
-What is your template?  next-page-router
+What is your template?  next-page-init
 ```
 
 ```
@@ -50,4 +50,18 @@ Would you like to create a remote repository on GitHub?  No
 
 ```
 chmod 755 T240701/start.sh && T240701/start.sh
+```
+
+or
+
+#### server
+
+```
+cd servers/http-mock-server && pnpm i && pnpm run start:dev
+```
+
+#### client
+
+```
+cd next-page-init && pnpm i && pnpm run dev
 ```
