@@ -37,50 +37,6 @@ git clone https://github.com/TOKTOKHAN-DEV/Onboarding-fe.git
 git checkout -b "김똑개"
 ```
 
-## 2. tokit 으로 프로젝트 클론시 주어진 과제의 템플릿에 맞는 이름을 적어주세요.
+# Tasks
 
-## 2-1. tokit 설치
-
-```bash
-npm i -g @toktokhan-dev/tokit
-```
-
-## 2-2. run tokit
-
-```
-tokit
-```
-
-## 2-3. Interactive response
-
-그런 다음, 대화형 프롬포트의 응답을 아래와 같이 해주세요.
-
-예시로, [24.06.18 과제] T-01 next-page-router 과제라면
-
-```
-// 해당 과제의 템플릿이름을 폴더 이름으로 기재해주세요.
-What is your project named?  next-page-router
-```
-
-```
-// 과제에 맞는 템플릿을 선택해주세요.
-What is your template?  <next-page-router>
-```
-
-```
-// pnpm 으로 통일해주세요.
-What is your package manager?  pnpm
-```
-
-```
-// No로 통일해주세요.
-Would you like to create a remote repository on GitHub?  No
-```
-
-# 과제 안내
-
-2024.06.17
-
-- next-page-router.md
-- next-app-router.md
-- react-native.md
+- T240701: [./T240701/README.md](./T240701/README.md) 참고
