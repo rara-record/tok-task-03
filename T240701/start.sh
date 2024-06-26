@@ -13,7 +13,7 @@ EOF
 osascript - "${currentDirectory}" <<EOF 
 on run {currentDirectory}
   tell application "Terminal"
-    do script "cd " & (quoted form of currentDirectory) & " && cd ../servers/http-mock-server && pnpm i && pnpm start:dev"
+    do script "cd " & (quoted form of currentDirectory) & " && cd servers/http-mock-server && pnpm i && pnpm start:dev"
   end tell
 end run
 EOF
