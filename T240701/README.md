@@ -55,7 +55,7 @@ What is your template?  next-page-init
 ```
 
 ```
-What version do you want to use? · v0.0.3
+What version do you want to use? · v0.0.5
 ```
 
 ```
