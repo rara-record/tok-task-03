@@ -38,6 +38,16 @@ npm i -g @toktokhan-dev/tokit
 
 #### tokit 실행하기
 
+<b>next-page-init 폴더는 루트경로에 생성되어야 합니다. tokit을 루트경로에서 실행해주세요.</b>
+
+```
+Onboarding-fe
+├── next-page-init
+├── server
+├── T240701
+└── README.md
+```
+
 ```
 tokit
 ```
