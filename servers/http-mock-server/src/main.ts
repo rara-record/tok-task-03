@@ -4,10 +4,14 @@ import { Logger } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { patchNestJsSwagger } from 'nestjs-zod';
 import { ENV } from 'env';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors();
+  app.useStaticAssets('./src/file/_media', {
+    prefix: '/file/_media/',
+  });
 
   const config = new DocumentBuilder()
     .setTitle('HTTP Mock Server')

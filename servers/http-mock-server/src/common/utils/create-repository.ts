@@ -7,17 +7,20 @@ export const createRepository = <
   Schema extends z.AnyZodObject,
   SchemaData = z.infer<Schema>,
   IDKey extends keyof z.infer<Schema> | undefined = undefined,
+  CreatedKey extends keyof z.infer<Schema> | undefined = undefined,
 >(params: {
   key: string;
   schema: Schema;
   initial?: SchemaData[];
   persist?: boolean;
   autoIncrementId?: IDKey;
+  autoCreatedAt?: CreatedKey;
 }) => {
   const {
     key,
     schema,
     autoIncrementId,
+    autoCreatedAt,
     initial = [],
     persist = ENV.CACHE_DATA,
   } = params;
@@ -68,11 +71,20 @@ export const createRepository = <
 
   const repository = {
     create: (
-      dto: IDKey extends string ? Omit<SchemaData, IDKey> : SchemaData,
+      dto: IDKey extends string
+        ? CreatedKey extends string
+          ? Omit<SchemaData, IDKey | CreatedKey>
+          : Omit<SchemaData, IDKey>
+        : SchemaData,
     ) => {
-      const item = autoIncrementId
-        ? { [autoIncrementId]: nextId, ...dto }
-        : dto;
+      const item = dto as SchemaData;
+      if (autoIncrementId) {
+        item[autoIncrementId as keyof typeof item] = nextId as any;
+      }
+      if (autoCreatedAt) {
+        item[autoCreatedAt as keyof typeof item] =
+          new Date().toISOString() as any;
+      }
 
       schema.parse(item);
       data.push(item as SchemaData);
