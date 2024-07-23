@@ -38,7 +38,7 @@ export class FileController {
   })
   @UseInterceptors(
     FileInterceptor('file', {
-      storage: createDiskStorage('src/file/_media'),
+      storage: createDiskStorage('public'),
       fileFilter: (req, file, cb) => {
         const found = presignedUrlRepo.findOne({
           query: [{ key: 'key', value: req.body.key }],

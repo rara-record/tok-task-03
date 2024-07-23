@@ -39,3 +39,4 @@ lerna-debug.log*
 
 # assets
 src/file/_media
+public

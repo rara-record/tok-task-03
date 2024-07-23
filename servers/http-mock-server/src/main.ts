@@ -9,7 +9,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors();
-  app.useStaticAssets('./src/file/_media', {
+  app.useStaticAssets('public', {
     prefix: '/file/_media/',
   });
 
