@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Patch,
   Post,
   Request,
   UseGuards,
@@ -18,6 +19,7 @@ import { UserEntity } from 'src/users/entities/user.entities';
 import { SocialLoginDto } from './dto/social-login.dto';
 import { RefreshDto } from './dto/refresh.dto';
 import { ProfileDto } from './dto/profile.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -56,9 +58,7 @@ export class AuthController {
   }
 
   @Post('refresh')
-  @ApiOkResponse({
-    type: CredentialDto,
-  })
+  @ApiOkResponse({ type: CredentialDto })
   refresh(@Body() refreshDto: RefreshDto) {
     return this.authService.refresh(refreshDto.refreshToken);
   }
@@ -66,10 +66,16 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('profile')
   @ApiBearerAuth()
-  @ApiOkResponse({
-    type: ProfileDto,
-  })
+  @ApiOkResponse({ type: ProfileDto })
   getProfile(@Request() req) {
     return this.authService.getProfile(req.user?.username);
+  }
+
+  @UseGuards(AuthGuard)
+  @Patch('profile')
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: ProfileDto })
+  updateProfile(@Request() req, @Body() data: UpdateProfileDto) {
+    return this.authService.updateProfile(req.user?.username, data);
   }
 }

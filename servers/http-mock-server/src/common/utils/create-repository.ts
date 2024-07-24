@@ -75,7 +75,9 @@ export const createRepository = <
         ? CreatedKey extends string
           ? Omit<SchemaData, IDKey | CreatedKey>
           : Omit<SchemaData, IDKey>
-        : SchemaData,
+        : CreatedKey extends string
+          ? Omit<SchemaData, CreatedKey>
+          : SchemaData,
     ) => {
       const item = dto as SchemaData;
       if (autoIncrementId) {

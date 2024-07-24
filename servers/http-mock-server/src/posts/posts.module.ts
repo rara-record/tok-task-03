@@ -5,11 +5,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JWT } from 'src/auth/constants';
 
 @Module({
-  imports: [
-    JwtModule.register({
-      secret: JWT.SECRET,
-    }),
-  ],
+  imports: [JwtModule.register({ secret: JWT.SECRET })],
   controllers: [PostsController],
   providers: [PostsService],
 })

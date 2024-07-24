@@ -7,6 +7,7 @@ export const userSchema = z.object({
   name: z.string(),
   password: z.string(),
   social: z.enum(['kakao', 'google', 'naver']).optional(),
+  profileImg: z.string().url().optional(),
 });
 
 export const userRepo = createRepository({

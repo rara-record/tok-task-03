@@ -1,10 +1,15 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { omit } from 'lodash';
 import { UserEntity } from 'src/users/entities/user.entities';
 import { ENV } from 'env';
 import { JWT } from './constants';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
 export const blackListTokens: string[] = [];
 
@@ -57,6 +62,15 @@ export class AuthService {
 
   async getProfile(username: string) {
     const res = await this.usersService.findOneBy('name', username);
+    return omit(res, ['password']);
+  }
+
+  async updateProfile(username: string, data: UpdateProfileDto) {
+    const user = await this.usersService.findOneBy('name', username);
+    if (!user) {
+      throw new BadRequestException("User doesn't exist");
+    }
+    const res = await this.usersService.update({ id: user.id, ...data });
     return omit(res, ['password']);
   }
 
