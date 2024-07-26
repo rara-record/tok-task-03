@@ -13,6 +13,7 @@ import { UsersService } from './users.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateGalleryItemsDto } from './dto/create-gallery-items.dto';
 import { CreateGalleryItemsResponseDto } from './dto/create-gallery-items-response.dto';
+import { GalleryEntity } from './entities/gallery.entities';
 
 @Controller('user')
 @ApiTags('user')
@@ -37,6 +38,10 @@ export class UserController {
   }
 
   @Get(':id/gallery')
+  @ApiOkResponse({
+    type: GalleryEntity,
+    isArray: true,
+  })
   async getGalleryItems(@Param('id') id: string) {
     return this.userService.findGalleryItems(+id);
   }
