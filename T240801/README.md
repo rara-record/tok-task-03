@@ -10,6 +10,8 @@ Next-page-router 온보딩입니다.
 
 ### T-240801
 
+- [ID.29: S3 관련 next-page-init 변경사항 확인하기](https://www.notion.so/toktokhan/S3-next-page-init-abb054e04d064b159a809ace6facabc7?pvs=4)
+
 - [ID.27: T-240701 commit 병합 및 최신 변경사항 가져오기](https://www.notion.so/toktokhan/T-240701-commit-023f9384582b41369cfcf7711ef8340d?pvs=4)
 
 - [ID.24: s3 file upload 구현해보기](https://www.notion.so/toktokhan/s3-file-upload-425c0db96dee49f4927450e86fb9efa1?pvs=4)
