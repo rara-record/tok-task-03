@@ -34,8 +34,8 @@ const config: RootConfig<{
   'gen:theme': {
     tokenModes: {
       colors: {
-        light: 'mode_1',
-        dark: 'mode_2',
+        light: 'fake-light',
+        dark: 'dark',
       },
       textStyles: {
         base: 'mobile',
