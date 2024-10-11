@@ -1,18 +1,10 @@
-import {
-  Card,
-  CardBody,
-  Container,
-  HStack,
-  Heading,
-  Tag,
-  Text,
-} from '@chakra-ui/react'
+import { Card, CardBody, Container, Heading, Text } from '@chakra-ui/react'
 
 import TemplateLayout from '@/components/@Templates/TemplateLayout'
 
-function Home() {
+function Profile() {
   return (
-    <TemplateLayout title={'HOME'}>
+    <TemplateLayout title={'Profile'}>
       <Container
         px={'0px'}
         display={'flex'}
@@ -122,4 +114,4 @@ function Home() {
     </TemplateLayout>
   )
 }
-export default Home
+export default Profile

@@ -12,7 +12,7 @@ function App({ Component, pageProps }: any) {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <ColorModeBtn />
+      {/* <ColorModeBtn /> */}
       <Component {...pageProps} />
       <ReactQueryDevtools initialIsOpen={false} />
       <OpenBtn

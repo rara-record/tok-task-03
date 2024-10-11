@@ -5,20 +5,21 @@ import { textStyles } from '@/generated/tokens/text-styles'
 export const sizes = {
   lg: defineStyle({
     px: '28px',
-    py: '12px',
+    minH: '32px',
     borderRadius: '10px',
     ...textStyles['pre-heading-05'],
   }),
   md: defineStyle({
     px: '20px',
-    py: '9px',
-    borderRadius: '8px',
-    ...textStyles['pre-heading-05'],
+    minH: '25px',
+    borderRadius: '4px',
+    ...textStyles['pre-caption-01'],
   }),
   sm: defineStyle({
     px: '14px',
-    py: '7px',
-    borderRadius: '6px',
-    ...textStyles['pre-body-05'],
+    minH: '20px',
+    borderRadius: '4px',
+
+    ...textStyles['pre-caption-03'],
   }),
 }

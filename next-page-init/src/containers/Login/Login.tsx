@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import {
   Box,
   Code,
+  Container,
   HStack,
   ListItem,
   UnorderedList,
@@ -60,8 +61,34 @@ function Login() {
     },
   })
   return (
-    <TemplateLayout title={'Login'}>
-      <Admonition title="로그인 페이지" type="info">
+    <TemplateLayout title={'LOGIN'}>
+      <HStack>
+        <KakaoButton
+          colorMode={colorMode}
+          onClick={() =>
+            kakao.loginToLink({
+              redirect_uri: `${window.origin}/social/callback`,
+              state: {
+                returnUrl: returnUrl || '/',
+                type: 'kakao',
+              },
+            })
+          }
+        />
+        <KakaoIconButton
+          colorMode={colorMode}
+          onClick={() =>
+            kakao.loginToPopup({
+              redirect_uri: `${window.origin}/social/callback`,
+              state: {
+                returnUrl: returnUrl || '/login',
+                type: 'kakao',
+              },
+            })
+          }
+        />
+      </HStack>
+      {/* <Admonition title="로그인 페이지" type="info">
         <Box color={'content.1'} mb={'10px'} textStyle={'pre-body-03'}>
           로그인 한 유저 Block: <Code color="content.1">withUnAuthGard</Code>
           <UnorderedList fontSize="14px" px="20px">
@@ -202,7 +229,7 @@ function Login() {
             })
           }
         />
-      </HStack>
+      </HStack> */}
     </TemplateLayout>
   )
 }

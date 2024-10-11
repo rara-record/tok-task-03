@@ -45,8 +45,8 @@ const defineVariant = ({
 
 const solidPrimary = defineVariant({
   basic: {
-    bgColor: 'primary.3',
-    color: 'content.8',
+    bgColor: 'button.primary',
+    color: 'text.primary.inverse',
   },
   hover: { bgColor: 'primary.4' },
   active: { bgColor: 'primary.5' },
@@ -55,9 +55,9 @@ const solidPrimary = defineVariant({
 
 const outlinePrimary = defineVariant({
   basic: {
-    color: 'primary.3',
-    bgColor: 'background.basic.1',
-    borderColor: 'primary.3',
+    color: 'text.brand',
+    bgColor: 'button.tertiary',
+    borderColor: 'border.brand',
   },
   hover: { bgColor: 'primary.1' },
   active: { bgColor: 'primary.2' },
@@ -70,9 +70,9 @@ const outlinePrimary = defineVariant({
 
 const outlineSecondary = defineVariant({
   basic: {
-    color: 'primary.3',
-    bgColor: 'background.basic.1',
-    borderColor: 'border.basic.2',
+    color: 'text.brand',
+    bgColor: 'button.tertiary',
+    borderColor: 'border.brand',
   },
   hover: { bgColor: 'background.basic.3' },
   active: { bgColor: 'background.basic.4' },
@@ -100,7 +100,7 @@ const outlineTertiary = defineVariant({
 
 const textPrimary = defineVariant({
   basic: {
-    color: 'primary.3',
+    color: 'text.primary',
     bgColor: 'transparent',
     otherStyle: {
       p: '0px',
