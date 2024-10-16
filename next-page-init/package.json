@@ -1,5 +1,5 @@
 {
-  "name": "tok-task-03",
+  "name": "next-page-init",
   "version": "0.0.0",
   "description": "This template uses Next.js's page-router approach to help developers quickly set up and start building scalable, performant applications with TypeScript and Next.js.",
   "author": "TOKTOKHAN.DEV<dev@toktokhan.dev>",
@@ -15,6 +15,7 @@
     "test:watch": "jest --watch",
     "tokript": "tokript2",
     "gen:theme": "tokript2 gen:theme",
+    "gen:api": "tokript2 gen:api",
     "commit": "tokript2 commit",
     "theme": "chakra-cli tokens src/configs/theme/index.ts",
     "theme:open": "code -r node_modules/@chakra-ui/styled-system/dist/theming.types.d.ts",

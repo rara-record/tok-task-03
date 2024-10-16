@@ -4,26 +4,39 @@ import { Button, Center } from '@chakra-ui/react'
 import { useOauthLinkCallback } from '@toktokhan-dev/react-web'
 
 import Splash from '@/components/Splash'
+import { SocialLoginDtoTypeEnumType } from '@/generated/swagger/@types/data-contracts'
+import { useAuthControllerSocialLoginMutation } from '@/generated/swagger/Auth/Auth.query'
+import { useLocalStorage } from '@/stores/local/state'
 
 import { OauthCallback } from '../types/oauth'
 
 const LinkCallback = () => {
   const router = useRouter()
 
+  const { mutateAsync } = useAuthControllerSocialLoginMutation({
+    options: {
+      onError: (error) => {
+        console.error('Social login failed:', error)
+        // Handle error (e.g., show error message to user)
+      },
+    },
+  })
+
   const result = useOauthLinkCallback<OauthCallback>({
     onSuccess: (res) => {
       console.log('succeed to login', res)
-      // mutateAsync({
-      //   data: {
-      //     code: res.code,
-      //     type: res.state.type,
-      //   },
-      // }).then((res) => {
-      //   tokenStorage?.set({
-      //     access_token: res.access_token,
-      //     refresh_token: res.refresh_token,
-      //   })
-      // })
+
+      if (!res?.code || !res?.state) return
+
+      mutateAsync({
+        data: {
+          code: res.code,
+          type: res.state.type,
+        },
+      }).then((res) => {
+        console.log(res, 'res')
+        useLocalStorage.setState({ token: res })
+      })
     },
     onFail: (res) => {
       console.log('failed to login', res)

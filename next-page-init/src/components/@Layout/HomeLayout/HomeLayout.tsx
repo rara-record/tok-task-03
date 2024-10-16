@@ -1,12 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import {
-  ContainerProps,
-  Grid,
-  GridItem,
-  GridItemProps,
-  keyframes,
-} from '@chakra-ui/react'
+import { ContainerProps, Grid, GridItem, GridItemProps } from '@chakra-ui/react'
+import { keyframes } from '@emotion/react'
 
 import { LAYOUT } from '@/constants/layout'
 
@@ -80,6 +75,7 @@ const HomeLayout = ({
         display="flex"
         justifyContent={'center'}
         pt={isScroll ? '10px' : '0'}
+        backgroundColor={'background.primary'}
         {...scrollConfig}
       >
         {header}
@@ -89,6 +85,7 @@ const HomeLayout = ({
         area={'main'}
         w={'100%'}
         minW={'100%'}
+        backgroundColor={'background.secondary'}
         {...containerProps}
       >
         {content}

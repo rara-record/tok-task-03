@@ -1,0 +1,4 @@
+export const JWT = {
+  SECRET: 'SECRET',
+  REFRESH_SECRET: 'REFRESH_SECRET',
+};

@@ -7,6 +7,7 @@ import Select from './multi-parts/select'
 import Switch from './multi-parts/switch'
 import Button from './single/button'
 import Container from './single/container'
+// import Tag from './single/tag'
 import Textarea from './single/textarea'
 
 export const components = {
