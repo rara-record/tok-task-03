@@ -1,7 +1,7 @@
-import { SocialLoginDtoTypeEnumType } from '@/generated/swagger/@types/data-contracts'
+// import { SocialLoginDtoTypeEnumType } from '@/generated/swagger/@types/data-contracts'
 
 export type OauthCallback = {
   returnUrl: string
-  type: SocialLoginDtoTypeEnumType
+  type: string
   // type: SocialLoginDtoTypeEnumType -> 'kakao' | 'google' | ...
 }

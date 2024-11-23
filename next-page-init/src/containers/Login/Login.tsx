@@ -28,6 +28,7 @@ import {
   NaverIconButton,
   useOauthPopupListener,
 } from '@toktokhan-dev/react-web'
+import { assertItemOf } from '@toktokhan-dev/universal'
 
 import Admonition from '@/components/@Templates/Admonition'
 import TemplateLayout from '@/components/@Templates/TemplateLayout'
@@ -60,6 +61,9 @@ function Login() {
   useOauthPopupListener<OauthCallback>({
     onSuccess: (res) => {
       if (!res?.code || !res.state) return // TODO: error handling
+
+      assertItemOf(['kakao', 'google', 'naver'] as const, res.state.type)
+
       mutateAsync({
         data: {
           code: res.code,

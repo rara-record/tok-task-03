@@ -2,9 +2,11 @@ import { useRouter } from 'next/router'
 
 import { Button, Center } from '@chakra-ui/react'
 import { useOauthLinkCallback } from '@toktokhan-dev/react-web'
+import { assertItemOf } from '@toktokhan-dev/universal'
+
+import { result } from 'lodash'
 
 import Splash from '@/components/Splash'
-import { SocialLoginDtoTypeEnumType } from '@/generated/swagger/@types/data-contracts'
 import { useAuthControllerSocialLoginMutation } from '@/generated/swagger/Auth/Auth.query'
 import { useLocalStorage } from '@/stores/local/state'
 
@@ -24,9 +26,9 @@ const LinkCallback = () => {
 
   const result = useOauthLinkCallback<OauthCallback>({
     onSuccess: (res) => {
-      console.log('succeed to login', res)
-
       if (!res?.code || !res?.state) return
+
+      assertItemOf(['kakao', 'google', 'naver'] as const, res?.state.type)
 
       mutateAsync({
         data: {
@@ -34,7 +36,6 @@ const LinkCallback = () => {
           type: res.state.type,
         },
       }).then((res) => {
-        console.log(res, 'res')
         useLocalStorage.setState({ token: res })
       })
     },
