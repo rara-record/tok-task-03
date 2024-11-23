@@ -4,6 +4,7 @@ import { Container, ContainerProps, HStack, Tag } from '@chakra-ui/react'
 
 interface TemplateLayoutProps extends ContainerProps {
   title: string
+  actions?: React.ReactNode
 }
 
 const TemplateLayout = ({
